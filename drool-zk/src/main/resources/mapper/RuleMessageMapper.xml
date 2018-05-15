@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oigbuy.droolzk.dao.RuleMessageMapper">
+
+    <select id="getNewVersion" resultType="String">
+        SELECT
+            version
+        FROM
+            rule_version
+        WHERE
+            id = (select max(id) from rule_version)
+    </select>
+
+    <select id="getEnableRuleByVersion" parameterType="String" resultType="com.oigbuy.droolzk.entity.RuleMessage">
+        SELECT
+            ruleId,
+            ruleName,
+            ruleDesc,
+            ruleVersion,
+            packageName
+        FROM
+            rule_messge
+        where
+        1=1
+        and ruleVersion = #{ruleVersion}
+    </select>
+    <select id="getEnableRuleByName" parameterType="String" resultType="com.oigbuy.droolzk.entity.RuleMessage">
+    	SELECT
+			ruleId,
+			ruleName,
+			ruleDesc,
+			ruleVersion,
+			packageName
+		FROM
+			rule_messge
+		where 1=1
+		and ruleVersion = #{ruleVersion}
+		and ruleName = #{ruleName}
+    </select>
+
+    <update id="updateVersion" parameterType="String">
+        UPDATE
+            rule_version
+        SET
+            version = #{version}
+        WHERE
+            id = 1
+    </update>
+</mapper>

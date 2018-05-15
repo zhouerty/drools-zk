@@ -1,0 +1,9 @@
+package rules
+
+rule "test08"
+
+    when
+    $str:String();
+    then
+     System.out.println("Hello" + $str);
+end

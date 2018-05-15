@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: cyzy-gpserver
+  profiles:
+      active: dev
+  cloud:
+    zookeeper:
+      enabled: true  # true:开启zookeeper外部化配置, false:读取本地配置; 需要将config.enabled,config.watcher.enabled同时设置
+      connect-string: 116.62.192.40:2181
+      config:
+        root: /config
+        enabled: true
+        watcher:
+          enabled: true
