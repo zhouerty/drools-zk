@@ -1,9 +1,13 @@
-package rules
+package rules.spring;
 
+global com.oigbuy.droolzk.listener.DroolsLoggerMessage droolsMessage;
 rule "test08"
-
+    no-loop true
+    agenda-group "agenda-group TEST"
+    auto-focus true
     when
     $str:String();
     then
+    drools.getRule().getAgendaGroup();
      System.out.println("Hello" + $str);
 end

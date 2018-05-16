@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
+ * @author qiang.zhou
  * JSON工具类，封装了com.alibaba.fastjson.JSON
  */
 public final class JsonUtil {
@@ -59,8 +60,9 @@ public final class JsonUtil {
      * @return Java对象 <ol><li>json字符串为空时返回null；<li>json字符串为无效JSON格式时，会输出log日志，返回null；</li></ol>
      */
     public static <T> T fromJson(final String json, final Type typeOfT) {
-        if (isEmpty(json))
+        if (isEmpty(json)) {
             return null;
+        }
         return JSON.parseObject(json, typeOfT);
 
     }
@@ -102,8 +104,9 @@ public final class JsonUtil {
      * @return Java对象 <ol><li>json字符串为空时返回null；<li>json字符串为无效JSON格式时，会输出log日志，返回null；</li></ol>
      */
     public static <T> List<T> fromJsonList(final String json, final Class<T> classOfT) {
-        if (isEmpty(json))
+        if (isEmpty(json)) {
             return null;
+        }
         return JSON.parseArray(json, classOfT);
     }
 
@@ -114,8 +117,9 @@ public final class JsonUtil {
      * @return JSON字符串
      */
     public static String toJson(final Object obj) {
-        if (null == obj)
+        if (null == obj) {
             return null;
+        }
         return JSON.toJSONString(obj);
     }
 
@@ -127,8 +131,9 @@ public final class JsonUtil {
      * @return JSON字符串
      */
     public static String toJson(final Object obj, final SerializerFeature... features) {
-        if (null == obj)
+        if (null == obj) {
             return null;
+        }
         return JSON.toJSONString(obj, features);
     }
 

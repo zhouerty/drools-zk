@@ -20,7 +20,6 @@ public class ServiceAop {
      * 监听com.oigbuy.droolzk.controller 包(包括子目录)下所有类
      * @return --
      */
-
     @Pointcut("execution(public * com.oigbuy.droolzk.controller.*.*(..))")
     public void webRequestLog() {
     }

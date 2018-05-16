@@ -4,6 +4,7 @@ import com.github.pagehelper.util.StringUtil;
 import com.oigbuy.droolzk.config.DroolsConfig;
 import com.oigbuy.droolzk.dao.RuleMessageMapper;
 import com.oigbuy.droolzk.service.ReloadDroolsRules;
+import org.kie.internal.utils.KieHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,12 @@ public class ZkWatcherWork {
         String serverVersion = droolsConfig.getRuleVersion();
         //如果服务器的版本号不为空且数据库版本号与服务器不一致则更新数据库的规则版本号
         if (!StringUtil.isEmpty(serverVersion) && !serverVersion.equals(baseVersion)) {
-            LOG.info("执行更新版本号");
+            LOG.info("执行更新版本号 " + baseVersion + " ====> " + serverVersion);
             ruleMessageMapper.updateVersion(serverVersion);
             LOG.info("执行规则重新加载");
             //按照新的版本号加载所有该版本下的规则
             reloadDroolsRules.load();
+            mark = false;
         }else{
             if(mark){
                 //如果项目初始化或重新发布则按最新规则版本号加载所有规则到规则仓库

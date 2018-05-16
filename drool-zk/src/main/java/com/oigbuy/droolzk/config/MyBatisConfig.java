@@ -23,6 +23,9 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * @author qiang.zhou
+ */
 @Configuration
 @EnableTransactionManagement
 public class MyBatisConfig implements TransactionManagementConfigurer {
@@ -63,7 +66,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     /**
      * 配置dataSource1，使用druid连接池
      */
-    @Bean
+    @Bean(destroyMethod = "close")
     @Primary
     public DataSource dataSource1() {
         return createDataSource(driverclassname,url,username,password,maxActive,

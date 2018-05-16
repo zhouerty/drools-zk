@@ -7,6 +7,8 @@ import org.kie.api.event.rule.ObjectUpdatedEvent;
 import org.kie.api.event.rule.RuleRuntimeEventListener;
 import org.kie.api.runtime.rule.FactHandle;
 
+import java.util.Map;
+
 /**
  * RuleRuntimeEventListenerImpl.java
  *
@@ -17,50 +19,25 @@ public class RuleRuntimeEventListenerImpl implements RuleRuntimeEventListener {
 
     @Override
     public void objectInserted(ObjectInsertedEvent event) {
-        Object o = event.getObject();
-        if (o != null) {
-            System.out.println("Insert Param ：" + JsonUtil.toJson(o));
+        if(event.getRule() != null && event.getRule().getName() != null){
+            String ruleName = event.getRule().getName();
+            String packageName = event.getRule().getPackageName();
+            Map<String,Object> objMap = event.getRule().getMetaData();
+            System.out.println("规则名：" + ruleName);
+            System.out.println("规则所在包名：" + packageName);
+            System.out.println("规则DATA：" + JsonUtil.toJson(objMap));
         }
-        if (event.getRule() != null) {
-            System.out.println("NOT Null");
-            System.out.println(event.getRule().getName());
-            System.out.println(event.getRule().getPackageName());
-            System.out.println(event.getRule().getId());
-            System.out.println(event.getRule().getMetaData());
-            System.out.println(event.getRule().getKnowledgeType().name());
-            System.out.println(event.getRule().getNamespace());
-        }
-        FactHandle factHandle = event.getFactHandle();
-        System.out.println(factHandle.toExternalForm());
+        System.out.println("objectInserted--事实插入的监听");
     }
 
     @Override
     public void objectUpdated(ObjectUpdatedEvent event) {
-        System.out.println("执行了Update");
-        Object o = event.getObject();
-        if (o != null) {
-            System.out.println(JsonUtil.toJson(o));
-        }
-        Object o2 = event.getOldObject();
-        if (o2 != null) {
-            System.out.println(JsonUtil.toJson(o2));
-        }
-        String packageName = event.getRule().getPackageName();
-        System.out.println("包名：" + packageName);
-        System.out.println(event.getRule().getMetaData());
-
+        System.out.println("objectUpdated--事实修改监听");
     }
 
     @Override
     public void objectDeleted(ObjectDeletedEvent event) {
-        System.out.println("执行了Delete");
-        Object o2 = event.getOldObject();
-        if (o2 != null) {
-            System.out.println(JsonUtil.toJson(o2));
-        }
-        String packageName = event.getRule().getPackageName();
-        System.out.println("包名：" + packageName);
-        System.out.println("aaaaa" + event.getFactHandle().toString());
+        System.out.println("objectDeleted--事实删除监听");
     }
 
 }

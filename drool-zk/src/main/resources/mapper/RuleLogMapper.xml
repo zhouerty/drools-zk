@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oigbuy.droolzk.dao.RuleLogMapper">
+
+    <insert id="saveRuleExecuteLog" parameterType="com.oigbuy.droolzk.entity.RuleLogMessage">
+          INSERT INTO bluesky.rule_log_messge ( ruleName, action, groupName ,createTime)
+            VALUES
+                ( #{ruleName}, #{action}, #{groupName} ,#{createTime})
+    </insert>
+</mapper>
