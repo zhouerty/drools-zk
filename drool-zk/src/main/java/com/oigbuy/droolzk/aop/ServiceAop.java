@@ -32,7 +32,7 @@ public class ServiceAop {
     @AfterReturning(returning = "result", pointcut = "webRequestLog()")
     public void doAfterReturning(Object result) {
         long startTime = timeLocal.get();
-        logger.info("花费的时间为:" + (System.currentTimeMillis() - startTime) + "毫秒");
+        logger.info("花费的时间为: {}毫秒",(System.currentTimeMillis() - startTime));
         //调用结束 为该线程本地变量移除当前线程的值
         timeLocal.remove();
     }
